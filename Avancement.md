@@ -2,24 +2,24 @@
 # Evaluation par FAIT/PAS FAIT/BlOQUE
 
 
-- Mesurer le volume / périmètre dans lequel il est intéressant et possible d'enregistrer des mouvements    FAIT
-- Perte de capteurs à partir de certains mouvements    FAIT
+- ~~Mesurer le volume / périmètre dans lequel il est intéressant et possible d'enregistrer des mouvements~~    FAIT
+- ~~Perte de capteurs à partir de certains mouvements~~    FAIT
 - Mouvements d'étirement posent problème aussi    ???
 - Bien comprendre les problèmes (proximité des capteurs, capteurs cachés)
-- Essayer une différente orientation du corps dans la capture (face ou de côté)    FAIT
-- Pb avec les capteurs près du sol   FAIT
-- Aide du groupe de PE qui travaille sur le tutorial Blender.    FAIT  
+- ~~Essayer une différente orientation du corps dans la capture (face ou de côté)~~    FAIT
+- ~~Pb avec les capteurs près du sol~~   FAIT
+- ~~Aide du groupe de PE qui travaille sur le tutorial Blender.~~    FAIT  
 - Montré comment faire et démo.    PAS FAIT
-- Mettre à jour le tutorial   FAIT
+- ~~Mettre à jour le tutorial~~   FAIT
 - Dire à cette équipe de BE de mettre le tutorial en ligne sous forme de page web (MARKDOWN)   PAS FAIT
 - Compléter ce tutorial vous-même     PAS FAIT
-- Mettre aussi le tutorial sur la position des markers en ligne    FAIT
-- Enregistrer des vidéos 1) de tutorials et 2) des aquisitions que vous faites    FAIT
+- ~~Mettre aussi le tutorial sur la position des markers en ligne~~    FAIT
+- ~~Enregistrer des vidéos 1) de tutorials et 2) des aquisitions que vous faites~~    FAIT
 - Faire une proposition (devis?) d'enregistrement de flux vidéos     ???
-- Discutter comment compléter les données manquantes (ajouts d'autres dispositifs de capture ? ou algos ? ou limites des mouvements à faire ?) FAIT
-- Visualisation générée en Python (MatPlotLib) à chaque instant on lit la connection / segment entre les marqueurs dans l'espace   FAIT
+- ~~Discutter comment compléter les données manquantes (ajouts d'autres dispositifs de capture ? ou algos ? ou limites des mouvements à faire ?)~~ FAIT
+- ~~Visualisation générée en Python (MatPlotLib) à chaque instant on lit la connection / segment entre les marqueurs dans l'espace~~   FAIT
 - Mettre le code sur GitHub, expliquer le code, comment reproduire les vidéos    FAIT,PAS FAIT,PAS FAIT
-- Mettre les vidéos sur YouTube    FAIT
+- ~~Mettre les vidéos sur YouTube~~    FAIT
 
 
 Next steps
