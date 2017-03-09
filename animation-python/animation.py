@@ -1,12 +1,14 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as colors
+import matplotlib.cm as cmx
 import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.animation as animation
 import math
 
 
-def read_from_csv(filename, markers) : 
+def read_from_csv(filename, patientname, markers) : 
     """
     Read marker datas from csv file exported by Nexus
     return a dict with keys - marker names, values - coord data
@@ -17,7 +19,7 @@ def read_from_csv(filename, markers) :
 
     for marker in markers :
         try:
-            col = result.columns.get_loc('film:'+marker)
+            col = result.columns.get_loc(patientname+':'+marker+'1')
         except Exception as e:
             print('read error : ' + marker)
             continue
@@ -25,17 +27,7 @@ def read_from_csv(filename, markers) :
         datas.loc[marker,'x'][0:data_one_marker.T.shape[1]] = data_one_marker.T.ix[0,2:]
         datas.loc[marker,'y'][0:data_one_marker.T.shape[1]] = data_one_marker.T.ix[1,2:]
         datas.loc[marker,'z'][0:data_one_marker.T.shape[1]] = data_one_marker.T.ix[2,2:]
-    return datas, frames
-
-def get_speed(datas) :
-    """
-    Calculate the speed (per frame) of a point between the positions p0 and p1.
-    Assuming v = (p(f0) - p(f1)) / (f1 - f0)
-    p - tuple (x,y,z)
-    f - int
-    """
-    v = list(map(lambda x: x / (f1-f0), [p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]]))
-    return v
+    return datas.convert_objects(convert_numeric=True), frames
 
 def get_color(v) :
     """
@@ -49,7 +41,9 @@ def get_color(v) :
 
 if __name__ == '__main__':
 
-    filename = 'film Cal 01'
+    datafolder = '../data/'
+    filename = datafolder + 'Badminton'
+    patientname = 'test'
 
     # all marker names
     markers = ['RFHD','RBHD','LBHD','LFHD','C7','RBAK','RSHO','RUPA','RELB','RFRA','RFRM','RWRA','LFRM','RWRB','RFIN','CLAV','LSHO','LUPA','LELB',
@@ -66,9 +60,20 @@ if __name__ == '__main__':
     ['RPSI','RASI'],['LPSI','LASI'],['LPSI','RPSI'],
     ['RASI','RTHI'],['RPSI','RTHI'],['LASI','LTHI'],['LPSI','LTHI'],
     ['RTHI','RKNE'],['RKNE','RTIB'],['RTIB','RANK'],['RTIB','RHEE'],['RANK','RHEE'],['RTOE','RANK'],['RTOE','RHEE'],
-    ['LTHI','LKNE'],['LKNE','LTIB'],['LTIB','LANK'],['LTIB','LHEE'],['LANK','LHEE'],['LTOE','LANK'],['LTOE','LHEE']]
+    ['LTHI','LKNE'],['LKNE','LTIB'],['LTIB','LANK'],['LTIB','LHEE'],['LANK','LHEE'],['LTOE','LANK'],['LTOE','LHEE'],
+    ['RELB','RFRA'],['RFRA','RWRA'],['RFRA','RWRB'],
+    ['LELB','LFRA'],['LFRA','LWRA'],['LFRA','LWRB']
+    ]
 
-    datas, frames = read_from_csv(filename+'.csv', markers)
+    datas, frames = read_from_csv(filename+'.csv', patientname, markers)
+    speed_vec = datas.ix[:,:].subtract(datas.ix[:,1:].rename(columns=lambda x: x-1))
+    speed_scal = np.sqrt(np.square(speed_vec.ix[0::3].reset_index(level=1).drop('level_1',1)).add(
+                         np.square(speed_vec.ix[1::3].reset_index(level=1).drop('level_1',1))).add(
+                         np.square(speed_vec.ix[2::3].reset_index(level=1).drop('level_1',1)))).fillna(value=0)
+
+    jet = plt.get_cmap('jet') 
+    norm = colors.Normalize(vmin=speed_scal.min().min(),vmax=speed_scal.max().max())
+    scalarMap = cmx.ScalarMappable(norm=norm, cmap=jet)
 
     fig = plt.figure()
     ax = p3.Axes3D(fig)
@@ -80,13 +85,16 @@ if __name__ == '__main__':
         obj = ax.plot([],[],[])[0]
         plot_obj.append(obj)
 
-    ax.set_xlim3d([-2000, 2000])
+    #ax.set_xlim3d([-2000, 2000])
+    ax.set_xlim3d([datas.ix[::3].min().min()-500, datas.ix[::3].max().max()+500])
     ax.set_xlabel('X')
 
-    ax.set_ylim3d([-1000, 2000])
+    #ax.set_ylim3d([-1000, 2000])
+    ax.set_ylim3d([datas.ix[1::3].min().min()-500, datas.ix[1::3].max().max()+500])
     ax.set_ylabel('Y')
 
-    ax.set_zlim3d([0, 1800])
+    #ax.set_zlim3d([0, 1800])
+    ax.set_zlim3d([datas.ix[2::3].min().min(), datas.ix[2::3].max().max()])
     ax.set_zlabel('Z')
 
     ax.set_title('Animation')
@@ -124,11 +132,8 @@ if __name__ == '__main__':
 
             obj.set_data([x1,x2],[y1,y2])
             obj.set_3d_properties([z1,z2])
-            if num < datas.loc[line[0]].shape[1] :
-                speed1 = get_speed((x1,y1,z1),(datas.loc[line[0],'x'][num+1],datas.loc[line[0],'y'][num+1],datas.loc[line[0],'z'][num+1]),num,num+1)
-            else :
-                speed1 = [0,0,0]
-            obj.set_color(get_color(speed1))
+
+            obj.set_color(scalarMap.to_rgba(speed_scal.loc[line[0]][num]))
             
         return plot_obj,
 
