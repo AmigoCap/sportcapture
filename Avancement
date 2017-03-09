@@ -1,0 +1,33 @@
+# Avancement d'équipe
+# Evaluation par FAIT/PAS FAIT/BlOQUE
+
+
+-Mesurer le volume / périmètre dans lequel il est intéressant et possible d'enregistrer des mouvements
+-Perte de capteurs à partir de certains mouvements
+-Mouvements d'étirement posent problème aussi
+->Bien comprendre les problèmes (proximité des capteurs, capteurs cachés)
+-Essayer une différente orientation du corps dans la capture (face ou de côté)
+-Pb avec les capteurs près du sol
+-Aide du groupe de PE qui travaille sur le tutorial Blender. Montré comment faire et démo.
+->Mettre à jour le tutorial
+->Dire à cette équipe de BE de mettre le ltutorial en ligne sous forme de page web (MARKDOWN)
+->Compléter ce tutorial vous-même
+-Mettre aussi le tutorial sur la position des markers en ligne
+-Enregistrer des vidéeos 1) de tutorials et 2) des aquisisiotns que vous faites
+-Faire une proposition (devis?) d'enregistrement de flux vidéos
+-Discutter comment compléter les données manquantes (ajouts d'autres dispositifs de capture ? ou algos ? ou limites des mouvements `a faire ?)
+-Visualisation générée en Python (MatPlotLib) à chaque instant on lit la connection / segment entre les marqueurs dans l'espace
+-Mettre le code sur GitHub, expliquer le code, comment reproduire les vidéos
+-Mettre les vidéos sur YouTube
+
+
+Next steps
+-Combiner avec un modèle 3D Blender (pose)
+-Analyser les données et les représenter dans le modèle 3D : couleur, ajout de syboles (chiffres), ajout de marques (flèche, ...)
+-Mettre un script global qui combine tous les traitements, etc.. (en particulier pour gérer les données manquantes)
+-Si temps dispo : faire une visu de la précision de la salle de mocap en fonction de la position des capteurs : https://amigocap.github.io/
+-Résoudre issue sur https://github.com/AmigoCap/amigocap.github.io
+
+
+
+Faire la liste des rendus finaux (code, documents, videos, tutoriels, ...) et documentations pour utiliser/reproduire
