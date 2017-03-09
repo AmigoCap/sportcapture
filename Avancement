@@ -8,7 +8,8 @@
 ->Bien comprendre les problèmes (proximité des capteurs, capteurs cachés)
 -Essayer une différente orientation du corps dans la capture (face ou de côté)    FAIT
 -Pb avec les capteurs près du sol   FAIT
--Aide du groupe de PE qui travaille sur le tutorial Blender. Montré comment faire et démo.    PAS FAIT
+-Aide du groupe de PE qui travaille sur le tutorial Blender.    FAIT  
+-Montré comment faire et démo.    PAS FAIT
 ->Mettre à jour le tutorial   FAIT
 ->Dire à cette équipe de BE de mettre le tutorial en ligne sous forme de page web (MARKDOWN)   PAS FAIT
 ->Compléter ce tutorial vous-même     PAS FAIT
@@ -23,7 +24,7 @@
 
 
 Next steps
--Combiner avec un modèle 3D Blender (pose)
+-Combiner avec un modèle 3D Blender (pose)    BlOQUE        
 -Analyser les données et les représenter dans le modèle 3D : couleur, ajout de symboles (chiffres), ajout de marques (flèche, ...)
 -Mettre un script global qui combine tous les traitements, etc.. (en particulier pour gérer les données manquantes)
 -Si temps dispo : faire une visu de la précision de la salle de mocap en fonction de la position des capteurs : https://amigocap.github.io/
