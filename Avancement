@@ -24,7 +24,7 @@
 
 Next steps
 -Combiner avec un modèle 3D Blender (pose)
--Analyser les données et les représenter dans le modèle 3D : couleur, ajout de syboles (chiffres), ajout de marques (flèche, ...)
+-Analyser les données et les représenter dans le modèle 3D : couleur, ajout de symboles (chiffres), ajout de marques (flèche, ...)
 -Mettre un script global qui combine tous les traitements, etc.. (en particulier pour gérer les données manquantes)
 -Si temps dispo : faire une visu de la précision de la salle de mocap en fonction de la position des capteurs : https://amigocap.github.io/
 -Résoudre issue sur https://github.com/AmigoCap/amigocap.github.io
@@ -32,3 +32,6 @@ Next steps
 
 
 Faire la liste des rendus finaux (code, documents, videos, tutoriels, ...) et documentations pour utiliser/reproduire
+-Codes
+-Documents de tutoriels
+-Vidéo de l'illustration d'aquisition de données et visualisation de données
