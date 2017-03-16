@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import math
 
-def read_from_csv(filename, markers) : 
+def read_from_csv(filename, patientname, markers) : 
     """
     Read marker datas from csv file exported by Nexus
     return a dict with keys - marker names, values - coord data
@@ -17,7 +17,7 @@ def read_from_csv(filename, markers) :
 
     for marker in markers :
         try:
-            col = result.columns.get_loc('film:'+marker)
+            col = result.columns.get_loc(patientname+':'+marker+'1')
         except Exception as e:
             print('read error : ' + marker)
             continue
@@ -31,7 +31,10 @@ def read_from_csv(filename, markers) :
         datas[marker] = marker_data
     return datas, frames
 
-filename = 'film Cal 01'
+datafolder = '../data/'
+filename = 'Badminton'
+fullpath = datafolder + filename
+patientname = 'test'
 
 # all marker names
 markers = ['RFHD','RBHD','LBHD','LFHD','C7','RBAK','RSHO','RUPA','RELB','RFRA','RFRM','RWRA','LFRM','RWRB','RFIN','CLAV','LSHO','LUPA','LELB',
@@ -48,10 +51,11 @@ lines = [['RFHD','LFHD'],['RFHD','RBHD'],['LFHD','LBHD'],['RBHD','LBHD'],
 ['RPSI','RASI'],['LPSI','LASI'],['LPSI','RPSI'],
 ['RASI','RTHI'],['RPSI','RTHI'],['LASI','LTHI'],['LPSI','LTHI'],
 ['RTHI','RKNE'],['RKNE','RTIB'],['RTIB','RANK'],['RTIB','RHEE'],['RANK','RHEE'],['RTOE','RANK'],['RTOE','RHEE'],
-['LTHI','LKNE'],['LKNE','LTIB'],['LTIB','LANK'],['LTIB','LHEE'],['LANK','LHEE'],['LTOE','LANK'],['LTOE','LHEE']]
+['LTHI','LKNE'],['LKNE','LTIB'],['LTIB','LANK'],['LTIB','LHEE'],['LANK','LHEE'],['LTOE','LANK'],['LTOE','LHEE'],
+['RELB','RFRA'],['RFRA','RWRA'],['RFRA','RWRB'],
+['LELB','LFRA'],['LFRA','LWRA'],['LFRA','LWRB']]
 
-
-datas, frames = read_from_csv(filename+'.csv', markers)
+datas, frames = read_from_csv(fullpath+'.csv', patientname, markers)
 ## GL View widget to display data
 app = QtGui.QApplication([])
 w = gl.GLViewWidget()
@@ -83,7 +87,7 @@ def update():
              y1 = datas[line[0]]['y'][index]
              z1 = datas[line[0]]['z'][index]
         except Exception as e:
-            print('0get error : '+line[0])
+            print('0get error : '+line[0], end="\r")
             obj.setData(pos=np.array([[0,0,0],[0,0,0]]))
             continue
         try:
@@ -92,7 +96,7 @@ def update():
             y2 = datas[line[1]]['y'][index]
             z2 = datas[line[1]]['z'][index]
         except Exception as e:
-            print('1get error : '+line[1])
+            print('1get error : '+line[1], end="\r")
             obj.setData(pos=np.array([[0,0,0],[0,0,0]]))
             continue
 
@@ -107,7 +111,7 @@ def update():
     
 timer = QtCore.QTimer()
 timer.timeout.connect(update)
-timer.start(10)
+timer.start(15)
 
 ## Start Qt event loop unless running in interactive mode.
 if __name__ == '__main__':
