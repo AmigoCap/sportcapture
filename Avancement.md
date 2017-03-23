@@ -29,6 +29,14 @@ Next steps
 - Si temps dispo : faire une visu de la précision de la salle de mocap en fonction de la position des capteurs : https://amigocap.github.io/
 - Résoudre issue sur https://github.com/AmigoCap/amigocap.github.io
 
+## RDV 16/03/2017
+- Mettre les liends dans avancemenent sur ce qui a été fait (e.g. plan de la salle)
+- Reprendre la liste d'avancement et clairifier
+- https://github.com/AmigoCap/sportcapture y présenter le projet (résumée et principaux résultats)
+- Utiliser color scale linéaire (noir au rouge)
+- Tester d'autres type de scales (log scale)
+- Pour chaque vidéo : comment la reproduire! (données, aquisition, position des capteurs, skelette, données exportées, logiciel/code pour importer, algos de traitement, script pour générer la vidéo)
+
 
 
 Faire la liste des rendus finaux (code, documents, videos, tutoriels, ...) et documentations pour utiliser/reproduire
