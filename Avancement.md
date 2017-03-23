@@ -33,8 +33,8 @@ Next steps
 - Mettre les liends dans avancemenent sur ce qui a été fait (e.g. plan de la salle)
 - Reprendre la liste d'avancement et clairifier
 - https://github.com/AmigoCap/sportcapture y présenter le projet (résumée et principaux résultats)
-- Utiliser color scale linéaire (noir au rouge)
-- Tester d'autres type de scales (log scale)
+- ~~Utiliser color scale linéaire (noir au rouge)~~ FAIT
+- Tester d'autres type de scales (log scale) PAS FAIT
 - Pour chaque vidéo : comment la reproduire! (données, aquisition, position des capteurs, skelette, données exportées, logiciel/code pour importer, algos de traitement, script pour générer la vidéo)
 
 
