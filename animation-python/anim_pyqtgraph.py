@@ -5,6 +5,8 @@ import pyqtgraph.opengl as gl
 import numpy as np
 import pandas as pd
 import math
+import os.path
+from utils import read_from_mkr
 
 def read_from_csv(filename, patientname, markers) : 
     """
@@ -17,7 +19,7 @@ def read_from_csv(filename, patientname, markers) :
 
     for marker in markers :
         try:
-            col = result.columns.get_loc(patientname+':'+marker+'1')
+            col = result.columns.get_loc(patientname+':'+marker)
         except Exception as e:
             print('read error : ' + marker)
             continue
@@ -32,28 +34,32 @@ def read_from_csv(filename, patientname, markers) :
     return datas, frames
 
 datafolder = '../data/'
-filename = 'Badminton'
+filename = 'Arnaud Cal 02'
 fullpath = datafolder + filename
-patientname = 'test'
+patientname = 'Arnaud'
+mkrpath = datafolder + patientname + '.mkr'
 
-# all marker names
-markers = ['RFHD','RBHD','LBHD','LFHD','C7','RBAK','RSHO','RUPA','RELB','RFRA','RFRM','RWRA','LFRM','RWRB','RFIN','CLAV','LSHO','LUPA','LELB',
-            'LFRA','LWRB','LWRA','LFIN','STRN','T10','RPSI','LPSI','RASI','LASI','RTHI','RKNE','RTIB','RANK','RHEE','RTOE','LTHI','LKNE',
-            'LTIB','LHEE','LANK','LTOE']
+if os.path.isfile(mkrpath) :
+    markers, lines = read_from_mkr(mkrpath)
+else :
+    # all marker names
+    markers = ['RFHD','RBHD','LBHD','LFHD','C7','RBAK','RSHO','RUPA','RELB','RFRA','RFRM','RWRA','LFRM','RWRB','RFIN','CLAV','LSHO','LUPA','LELB',
+                'LFRA','LWRB','LWRA','LFIN','STRN','T10','RPSI','LPSI','RASI','LASI','RTHI','RKNE','RTIB','RANK','RHEE','RTOE','LTHI','LKNE',
+                'LTIB','LHEE','LANK','LTOE']
 
-# connectivity between markers, each one represents a line in animation
-lines = [['RFHD','LFHD'],['RFHD','RBHD'],['LFHD','LBHD'],['RBHD','LBHD'],
-['RFHD','C7'],['LFHD','C7'],['RBHD','C7'],['LBHD','C7'],['C7','RSHO'],['C7','LSHO'],
-['RSHO','RUPA'],['RUPA','RELB'],['RELB','RFRM'],['RFRM','RWRA'],['RFRM','RWRB'],['RFIN','RWRA'],['RFIN','RWRB'],['RSHO','T10'],['RSHO','CLAV'],
-['LSHO','LUPA'],['LUPA','LELB'],['LELB','LFRM'],['LFRM','LWRA'],['LFRM','LWRB'],['LFIN','LWRA'],['LFIN','LWRB'],['LSHO','T10'],['LSHO','CLAV'],
-['CLAV','STRN'],['C7','RBAK'],['T10','RBAK'],
-['STRN','RASI'],['STRN','LASI'],['T10','RPSI'],['T10','LPSI'],
-['RPSI','RASI'],['LPSI','LASI'],['LPSI','RPSI'],
-['RASI','RTHI'],['RPSI','RTHI'],['LASI','LTHI'],['LPSI','LTHI'],
-['RTHI','RKNE'],['RKNE','RTIB'],['RTIB','RANK'],['RTIB','RHEE'],['RANK','RHEE'],['RTOE','RANK'],['RTOE','RHEE'],
-['LTHI','LKNE'],['LKNE','LTIB'],['LTIB','LANK'],['LTIB','LHEE'],['LANK','LHEE'],['LTOE','LANK'],['LTOE','LHEE'],
-['RELB','RFRA'],['RFRA','RWRA'],['RFRA','RWRB'],
-['LELB','LFRA'],['LFRA','LWRA'],['LFRA','LWRB']]
+    # connectivity between markers, each one represents a line in animation
+    lines = [['RFHD','LFHD'],['RFHD','RBHD'],['LFHD','LBHD'],['RBHD','LBHD'],
+    ['RFHD','C7'],['LFHD','C7'],['RBHD','C7'],['LBHD','C7'],['C7','RSHO'],['C7','LSHO'],
+    ['RSHO','RUPA'],['RUPA','RELB'],['RELB','RFRM'],['RFRM','RWRA'],['RFRM','RWRB'],['RFIN','RWRA'],['RFIN','RWRB'],['RSHO','T10'],['RSHO','CLAV'],
+    ['LSHO','LUPA'],['LUPA','LELB'],['LELB','LFRM'],['LFRM','LWRA'],['LFRM','LWRB'],['LFIN','LWRA'],['LFIN','LWRB'],['LSHO','T10'],['LSHO','CLAV'],
+    ['CLAV','STRN'],['C7','RBAK'],['T10','RBAK'],
+    ['STRN','RASI'],['STRN','LASI'],['T10','RPSI'],['T10','LPSI'],
+    ['RPSI','RASI'],['LPSI','LASI'],['LPSI','RPSI'],
+    ['RASI','RTHI'],['RPSI','RTHI'],['LASI','LTHI'],['LPSI','LTHI'],
+    ['RTHI','RKNE'],['RKNE','RTIB'],['RTIB','RANK'],['RTIB','RHEE'],['RANK','RHEE'],['RTOE','RANK'],['RTOE','RHEE'],
+    ['LTHI','LKNE'],['LKNE','LTIB'],['LTIB','LANK'],['LTIB','LHEE'],['LANK','LHEE'],['LTOE','LANK'],['LTOE','LHEE'],
+    ['RELB','RFRA'],['RFRA','RWRA'],['RFRA','RWRB'],
+    ['LELB','LFRA'],['LFRA','LWRA'],['LFRA','LWRB']]
 
 datas, frames = read_from_csv(fullpath+'.csv', patientname, markers)
 ## GL View widget to display data
