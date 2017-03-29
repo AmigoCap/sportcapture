@@ -45,3 +45,32 @@ def read_from_mkr(filename) :
                 markers.append(line[0:-1])
 
     return markers, segments
+
+def read_from_json(filename) :
+    """
+    Read joint angular information from .json file
+
+    """
+    correspondance = {
+                      'L_Collar_L_Humerus' : ['LSHO'],
+                      'L_Elbow_L_Wrist' : ['LWRA','LWRB'],
+                      'L_Femur_L_Tibia' : ['LKNE'],
+                      'L_Humerus_L_Elbow' : ['LELB'],
+                      'L_Tibia_L_Foot' : ['LANK'],
+                      'LowerBack_Head' : ['C7'],
+                      'LowerBack_L_Collar' : ['CLAV'],
+                      'LowerBack_R_Collar' : ['CLAV'],
+                      'R_Collar_R_Humerus' : ['RSHO'],
+                      'R_Elbow_R_Wrist' : ['RWRA','RWRB'],
+                      'R_Femur_R_Tibia' : ['RKNE'],
+                      'R_Humerus_R_Elbow' : ['RELB'],
+                      'R_Tibia_R_Foot' : ['RANK'],
+                      'Root_L_Femur' : ['LASI','LPSI'],
+                      'Root_R_Femur' : ['RASI','RPSI']
+                      }
+    useful_joint_names = list(correspondance.keys())
+
+    table = pd.read_json(filename)
+    joints = table[useful_joint_names]
+
+    return joints, correspondance
