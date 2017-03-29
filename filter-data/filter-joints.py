@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from math import sqrt
+
 #change here the file from which to read the data
 filename = "../data/rugby+angle.csv"
 
@@ -41,7 +43,7 @@ def norm2OfSeries (series, firstIndex, numberOfSeries) :
         sum = 0
         for i in range(firstIndex, firstIndex+numberOfSeries) :
             sum += series[i][j]*series[i][j]
-        norm.append(sum)
+        norm.append(sqrt(sum))
     return norm;
 
 
@@ -76,12 +78,15 @@ units = content.pop(0).split(',')
 # at this point, the rest of the file is pure data
 
 # we now need data as time series for each measure.
-timeSeries = [];
+timeSeries = []
+namesToDrop = []
 for i,line in enumerate(content) :
     a = line.split(',')
     for j,mesure in enumerate(a) :
         if i == 0 :
             timeSeries.append([])
+            if mesure == '' :
+                namesToDrop.append(j)
         if mesure == '' :
             timeSeries[j].append(0)
         else :
@@ -97,7 +102,7 @@ accelerationSeries =  differentiateSeries(speedSeries, frameRate)
 # for each joint, compute the norm of vitesse and acceleration
 result = {}
 for i,name in enumerate(names) :
-    if name != '' :
+    if name != '' and i not in namesToDrop :
         startOfName = 0
         if ':' in name :
             startOfName = name.index(':')+1
@@ -115,6 +120,9 @@ for i,name in enumerate(names) :
 
 # now we need to save the result in a csv file
 import json
+from json import encoder
+encoder.FLOAT_REPR = lambda o: format(o, '.2f')
+
 with open(filename[:-4]+'_filtered.json', 'w') as outfile:
     json.dump(result, outfile)
 
