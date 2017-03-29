@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import math
 import os.path
-from utils import read_from_mkr
+from utils import read_from_mkr, read_from_json
 
 def read_from_csv(filename, patientname, markers) : 
     """
@@ -38,6 +38,8 @@ filename = 'Arnaud Cal 02'
 fullpath = datafolder + filename
 patientname = 'Arnaud'
 mkrpath = datafolder + patientname + '.mkr'
+jsonpath = datafolder + 'rugby+angle_filtered' + '.json'
+draw_joints = False     
 
 if os.path.isfile(mkrpath) :
     markers, lines = read_from_mkr(mkrpath)
@@ -61,6 +63,15 @@ else :
     ['RELB','RFRA'],['RFRA','RWRA'],['RFRA','RWRB'],
     ['LELB','LFRA'],['LFRA','LWRA'],['LFRA','LWRB']]
 
+if os.path.isfile(jsonpath) :
+    joints, joint_marker = read_from_json(jsonpath)
+    draw_joints = True
+    angular_speed_min = min(joints.loc['angular_speed'].min())
+    angular_speed_max = max(joints.loc['angular_speed'].max())
+else : 
+    print("Angle file not found. \n")
+    draw_joints = False
+
 datas, frames = read_from_csv(fullpath+'.csv', patientname, markers)
 ## GL View widget to display data
 app = QtGui.QApplication([])
@@ -79,6 +90,8 @@ for line in lines :
     obj = gl.GLLinePlotItem()
     w.addItem(obj)
     plot_obj.append(obj)
+joint_obj = gl.GLScatterPlotItem()
+w.addItem(joint_obj)
 
 index = 0
 def update():
@@ -112,6 +125,19 @@ def update():
             continue
         points = np.array([[x1,y1,z1],[x2,y2,z2]])
         obj.setData(pos=points, mode='lines')
+
+    if draw_joints :
+        global joint_obj
+        joint_pos = []
+        joint_color = []
+        for joint in joints.columns.tolist() : 
+            joint_marker_list = joint_marker[joint]
+            for marker in joint_marker_list :
+                joint_pos.append([datas[marker]['x'][index],datas[marker]['y'][index],datas[marker]['z'][index]])
+                color_ratio = (joints.loc['angular_speed',joint][index] - angular_speed_min) / (angular_speed_max - angular_speed_min)
+                joint_color.append([1,1-color_ratio,1-color_ratio,1])
+        joint_obj.setData(pos=np.array(joint_pos),color=np.array(joint_color),size=10)
+
     index = (index+1) % frames
     return
     
