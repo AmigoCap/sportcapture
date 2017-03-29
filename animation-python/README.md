@@ -13,7 +13,7 @@ Les programmes sont développés en Python 3.6 et dépendent de deux librairies 
 
 * Pyqtgraph
 
-  L'installation de Pyqtgraph est fait via le fichier binaire sur son [site](http://www.pyqtgraph.org/).
+  L'installation de Pyqtgraph est faite via le fichier binaire téléchargeable sur [le site pyqtgraph](http://www.pyqtgraph.org/).
   
 * Ffmpeg (pour création de fichier vidéo avec Matplotlib)
 

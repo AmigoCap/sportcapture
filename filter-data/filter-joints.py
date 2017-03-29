@@ -109,20 +109,24 @@ for i,name in enumerate(names) :
         #name without prefix
         goodName = name[startOfName:];
         result[goodName] = {}
+        # look if the data is 1D, 2D or 3D
         number = 1
         if names[i+1] == '' :
             number = 2
         if names[i+2] == '' :
             number = 3
+        # apply the norm to reduce the nD values to a single dimension value
         result[goodName]['angle'] = norm2OfSeries(timeSeriesSmoothed, i, number)
         result[goodName]['angular_speed'] = norm2OfSeries(speedSeries, i, number)
         result[goodName]['angular_acceleration'] = norm2OfSeries(accelerationSeries, i, number)
 
-# now we need to save the result in a csv file
+# now we need to save the result in a json file
+# a little tweek is necessary to export only 2 digits after the point, we don't need more precision and it saves a lot of size
 import json
 from json import encoder
 encoder.FLOAT_REPR = lambda o: format(o, '.2f')
 
+# the output file is simply the file name with the '_filtered' suffix
 with open(filename[:-4]+'_filtered.json', 'w') as outfile:
     json.dump(result, outfile)
 
