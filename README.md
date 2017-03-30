@@ -52,7 +52,7 @@ Visualisation échauffement de rugby avec vitesse linéaire et angulaire en temp
 
 ### Vidéos générés en Blender
 
-Squelette visualisé dans Blender : https://youtu.be/0MSzjQJh2ys
+Squelette visualisé dans Blender : https://youtu.be/8ouKa9Edbio
 
 ### Tutoriel
 
